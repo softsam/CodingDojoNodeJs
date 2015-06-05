@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Java 8 - Bientôt dans vos applies</title>
+
+		<meta name="description" content="Coding dojo Node Js">
+		<meta name="author" content="Benjamin Einaudi">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="reveal.js-2.5.0/css/reveal.min.css">
+		<link rel="stylesheet" href="reveal.js-2.5.0/css/theme/orange.css" id="theme">
+        <link type="text/css" rel="stylesheet" href="highlight/styles/default.css"/>
+        <link type="text/css" rel="stylesheet" href="highlight/styles/darkula.css"/>
+
+
+
+		<link type="text/css" rel="stylesheet" href="shCoreCustom.css"/>
+
+
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="reveal.js-2.5.0/lib/js/html5shiv.js"></script>
+		<![endif]-->
+        <script src="reveal.js-2.5.0/lib/js/head.min.js"></script>
+        <script src="reveal.js-2.5.0/js/reveal.min.js"></script>
+        <script src="jquery.min.js"></script>
+
+
+	<script type="text/javascript" src="highlight/highlight.pack.js"></script>
+	<script type="text/javascript">
+        window.onload = function(){
+            //hljs.initHighlightingOnLoad();
+            $('pre code').each(function(i, block) {
+                hljs.highlightBlock(block);
+            });
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: false,
+                progress: true,
+                history: true,
+                center: true,
+                width: 1024,
+
+                theme: Reveal.getQueryHash().theme || 'orange', // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    { src: 'reveal.js-2.5.0/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'reveal.js-2.5.0/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'reveal.js-2.5.0/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    // { src: 'reveal.js-2.5.0/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: 'reveal.js-2.5.0/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    { src: 'reveal.js-2.5.0/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        }
+
+    </script>
+
+	</head>
+
+	<body>
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<section class="home">
+					<h1>Node Js</h1>
+					<h3>Coding Dojo - Node Js</h3>
+					<small>Animée par vous m&ecirc;me</small>
+				</section>
+
+				<section>
+					<section>
+						<h2>Node JS</h2>
+						<div>
+                            <ul>
+                                <li>Nodejs est un serveur d'application qui héberge des applications écrites en javascript. </li>
+                                <li>Il s'éxécute sur un thread unique et les opération E/S sont non bloquantes</li>
+                                <li>Il vient avec npm (gestionnaire de paquets) qui se charge des dépendances</li>
+                            </ul>
+						</div>
+					</section>
+                    <section>
+                        <h2>exemple d'une opération d'IO non bloquante</h2>
+                        <div>
+                            <pre>
+                                <code>
+//appel à l'operation
+someIoOperation(param1,param2, param3,
+    function(err, result){
+        if(err){
+            //ici err est non null
+            handleError(err);
+        }else{
+            handleResult(result);
+        }
+});
+                                </code>
+                            </pre>
+                        </div>
+                    </section>
+				</section>
+
+
+				<section>
+					<section>
+						<h2>
+							Prérequis
+						</h2>
+                    </section>
+                    <section>
+                        <ul>
+                            <li>Installer <a href="http://nodejs.org/dist/v0.10.25/">nodejs 0.10.25 (iso kermit)</a></li>
+                            <li>Pour eburo: Installer le <a href="http://recommendations.si.fr.intraorange/environnement-de-d-veloppement-web/#cntlm">proxy cntlm</a></li>
+                            <li>Un éditeur javascript(Bracket avec extension extension beutify, IntelliJ Ultimate, Nodeeclipse...)</li>
+                            <li><a href="http://www.mongodb.org/downloads#previous">MongoDb 2.4</a></li>
+                        </ul>
+					</section>
+				</section>
+
+
+				<section>
+					<section>
+						<h1>
+                            C'est parti
+						</h1>
+
+					</section>
+                </section>
+			</div>
+		</div>
+
+	</body>
+
+</html>
