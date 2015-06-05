@@ -4,9 +4,9 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>Java 8 - Bientôt dans vos applies</title>
+		<title>Coding dojo NodeJs</title>
 
-		<meta name="description" content="Coding dojo Node Js">
+		<meta name="description" content="Coding dojo NodeJs">
 		<meta name="author" content="Benjamin Einaudi">
 
 		<meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,7 +52,7 @@
                 progress: true,
                 history: true,
                 center: true,
-                width: 1024,
+                width: 1572,
 
                 theme: Reveal.getQueryHash().theme || 'orange', // available themes are in /css/theme
                 transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
@@ -138,11 +138,318 @@ someIoOperation(param1,param2, param3,
 
 				<section>
 					<section>
-						<h1>
-                            C'est parti
-						</h1>
-
+						<h2>
+                            Init
+						</h2>
 					</section>
+                    <section>
+                        <h2>Récupération du code (tag init)</h2>
+                        <pre><code>git clone  https://github.com/antechrestos/CodingDojoNodeJs.git -b init</code></pre>
+                    </section>
+                    <section>
+                        <h2>Arborescence</h2>
+                        <ul>
+                            <li>package.json : descriptif de l'application</li>
+                            <li>node_modules: là où seront installés les librairies requises. Taper npm install à la racine du projet.</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>app.js: l'application express</h2>
+                        <p>Notion de handler</p>
+                        <pre>
+                            <code>
+function(req, res, next){
+}
+                            </code>
+                        </pre>
+                        <pre>
+                            <code>
+var express = require('express');
+var path = require('path');
+var favicon = require('serve-favicon');
+var html = require('./routes/html')
+
+
+
+var app = express();
+
+app.use(favicon(__dirname + '/public/images/favicon.ico'));
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/', html);
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+    console.log("not found");
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+});
+
+// error handlers
+
+// development error handler
+// will print stacktrace
+if (app.get('env') === 'development') {
+    console.log("enabling stacks");
+    app.use(function(err, req, res, next) {
+        console.error(err);
+        res.status(err.status || 500);
+        res.json({
+            message: err.message,
+            error: err
+        });
+    });
+}
+else{
+    // production error handler
+    // no stacktraces leaked to user
+    app.use(function(err, req, res, next) {
+        res.status(err.status || 500);
+        res.render({
+            message: err.message,
+            error: {}
+        });
+    });
+
+}
+
+
+module.exports = app;
+                            </code>
+                        </pre>
+                    </section>
+                    <section>
+                        <h2>server.js</h2>
+                        <pre>
+                            <code>
+#!/bin/env node
+
+var defaultDebugMode =   "app:*";
+if(typeof process.env.DEBUG == "undefined"){
+    console.log("Adding DEBUG variable to "+defaultDebugMode);
+    process.env.DEBUG=defaultDebugMode;
+}else{
+    console.log("DEBUG already set to "+defaultDebugMode);
+}
+
+var http = require('http');
+var path = require('path');
+var debug = require('debug')('app:server');
+var error = require('debug')('app:server');
+var app = require("./app");
+
+debug.log = console.log.bind(console);
+
+var server = http.createServer( app);
+
+var host = null;
+var port = 8080;
+
+debug("server will listen on %s:%d",
+                    host == null? "*" : host, port);
+
+server.listen(port, host, function () {
+    var mDate = new Date(Date.now());
+    debug('%s: Node server started on %s:%d ...',
+                        mDate, host == null? "*" : host, port);
+});
+
+                            </code>
+                        </pre>
+                    </section>
+                    <section>
+                        <h2>Exécution</h2>
+                        <ul>
+                            <li>Démarrage <pre><code>node server.js</code></pre></li>
+                            <li>Aller sur: http://localhost:8080</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Ouf!</h2>
+                    </section>
+
+                </section>
+                <section>
+                    <section>
+                        <h2>Jade</h2>
+                    </section>
+                    <section>
+                        <h3>Ajout dépendance 1.9.2</h3>
+                        <ul>
+                            <li>Déclaration</li>
+                            <li>Installation</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>Déclaration Jade dans application</h3>
+                        <pre>
+                            <code>
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
+                            </code>
+                        </pre>
+                    </section>
+                    <section>
+                        <h3>Déclaration de la vue</h3>
+                        <pre>
+                            <code>
+doctype html
+    html
+        head
+            title=title
+        body
+            h2 Hello
+                small you
+                            </code>
+                        </pre>
+                    </section>
+                    <section>
+                        <h3>Perdu?</h3>
+                        <pre><code>git clone  https://github.com/antechrestos/CodingDojoNodeJs.git -b init_jade</code></pre>
+                    </section>
+                    <section>
+                        <h3>Exemples</h3>
+                        <pre>
+                            <code>
+doctype html
+    html(lang="en")
+    head
+        title= pageTitle
+        script(type='text/javascript').
+            if (foo) {
+                bar(1 + 5)
+            }
+    body
+        h1 Jade - node template engine
+        #container.col
+        if youAreUsingJade
+            p You are amazing
+        else
+            p Get on it!
+            p.
+                Jade is a terse and simple
+                templating language with a
+                strong focus on performance
+                and powerful features.
+                            </code>
+                        </pre>
+                    </section>
+                    <section>
+                        <h3>Exercice</h3>
+                        <p>Réécrire <i>hello.html</i> avec jade</p>
+                        <ul>
+                            <li>banners.jade: contient les banner warning et error et le javascript associé</li>
+                            <li>header.jade: contient les banner warning et error et le javascript associé</li>
+                            <li>layout.jade: contient le squelette de la page (utiliser blocks pour la notion de template)</li>
+                            <li>hello.jade: étend layout.jade et définit le block content définit dans layout.jade</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>Perdu?</h3>
+                        <pre><code>git clone  https://github.com/antechrestos/CodingDojoNodeJs.git -b exercice_jade</code></pre>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h2>MongoDb</h2>
+                    </section>
+                    <section>
+                        <h3>Ajout dépendance 0.18.0</h3>
+                        <ul>
+                            <li>Déclaration</li>
+                            <li>Installation (soit par npm install, soit décompression de mongojs.zip dans node_modules</li>
+                            <li>Démarrage mongo sur port 27017 (défaut)<pre><code>mongod --dbpath db.data/ --port 27017</code></pre></li>
+                        </ul>
+                    </section>
+                    <section>
+                        Ouverture de l'objet base de donnée mongo
+                        <h3>Dans un fichier db.js</h3>
+                        <pre>
+                            <code>
+var mongojs = require('mongojs');
+var debug= require('debug')('app:db');
+debug.log = console.log.bind(console);
+
+var dbHost = 'localhost';
+var dbPort = 27017;
+var dbName = 'CodingDojoNodeJs';
+
+
+var db = mongojs(dbHost+':'+dbPort+'/'+dbName);
+
+debug('db loaded');
+module.exports =  {
+    developer : db.collection('developer')
+} ;
+
+                            </code>
+                        </pre>
+                    </section>
+                    <section>
+                        <h3>Un service rest</h3>
+                        <p>Dans rest/developer.js</p>
+                        <pre>
+                            <code>
+var express = require('express');
+var debug= require('debug')('app:rest:developer');
+var error= require('debug')('app:rest:developer');
+
+debug.log = console.log.bind(console);
+
+
+exports = module.exports = loadDevelopersRouter;
+
+function loadDevelopersRouter(db){
+    var router = express.Router();
+
+    //parsing parameter in uri
+    router.param('developer_name', function(req, res, next, name) {
+        req.developerName = name;
+        next();
+    });
+
+    //root route :)
+    router.route('/').get(function(req, res, next){
+        //db.developer.find(function(err, developers) {});
+        next();
+    }).post(function(req, res, next){
+        //db.developer.save(developer, function(err){
+        next();
+    });
+
+    //specific element
+    router.route('/:developer_name/').get(function(req, res, next) {
+        //db.developer.findOne({_id: req.developerName}, function (err, developer) {
+        next();
+    }).put(function(req, res, next) {
+        //db.developer.update({_id: req.developer_name}, {$set: {field1: update.field1, field2: update.field2}}, function(err, updated){
+        next();
+    }).delete(function(req, res, next){
+        //db.developer.remove({_id: req.developerName},true, function (err) {
+        next();
+    });
+    return router;
+}
+                            </code>
+                        </pre>
+                    </section>
+                    <section>
+                        <h3>Routing in app</h3>
+                        <pre>
+                            <code>
+var db = require("./db");
+
+var developer = require("./routes/rest/developer");
+//...
+app.use('/services/developers/', developer(db));
+                            </code>
+                        </pre>
+                    </section>
+                    <section>
+                        <h3>Perdu?</h3>
+                        <pre><code>git clone  https://github.com/antechrestos/CodingDojoNodeJs.git -b template_rest</code></pre>
+                    </section>
                 </section>
 			</div>
 		</div>
