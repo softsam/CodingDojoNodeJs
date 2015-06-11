@@ -450,6 +450,64 @@ app.use('/services/developers/', developer(db));
                         <h3>Perdu?</h3>
                         <pre><code>git clone  https://github.com/antechrestos/CodingDojoNodeJs.git -b template_rest</code></pre>
                     </section>
+                    <section>
+                        <h3>Exercice</h3>
+                        <p>Impl&eacute;menter GET/POST/PUT/DELETE et une page d&eacute;di&eacute;e</p>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h2>Tests</h2>
+                    </section>
+
+                    <section>
+                        <h3>Ce dont nous avons besoin pour commencer</h3>
+                        <ul>
+                            <li>Un framework de test: Mocha 2.2.5</li>
+                            <li>Une librairie d'assertion:
+                                <ul>
+                                    <li>assert: native en node js, minimaliste</li>
+                                    <li>chai: librairie d'assertion TDD/BDD</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    </section>
+                    <section>
+                        <h3>Code</h3>
+                        <label>Récup&eacute;rer le code qui impl&eacute;mente les GET/POST/PUT/DELETE sur les d&eacute;veloppers ainsi qu'une page jade</label>
+                        <pre><code>git clone  https://github.com/antechrestos/CodingDojoNodeJs.git -b init_test</code></pre>
+                        <p>Installer les deux librairies</p>
+                        <pre><code>npm install</code></pre>
+                    </section>
+                    <section>
+                        <h3>Lancement des tests</h3>
+                        <pre><code>node_modules/mocha/bin/mocha</code></pre>
+                    </section>
+                    <section>
+                        <h3>Test application</h3>
+                        <p>Ajouter les librairies suivantes</p>
+                        <ul>
+                            <li>superagent 1.2.0: client l&eacute;ger http</li>
+                            <li>mockery 1.4.0: permet de contr&ocirc;ler les chargements des d&eacute;pendances</li>
+                            <li>R&eacute;cu&ecirc;p&eacute;rer le code
+                                <pre><code>git clone  https://github.com/antechrestos/CodingDojoNodeJs.git -b init_test_rest</code></pre>
+                            </li>
+                        </ul>
+                        <p>Coder les tests sur le POST/PUT/DELETE (penser &agrave; lancer mongo)</p>
+                        <p>* Attention aux bugs qui existent dans le code *</p>
+                    </section>
+                    <section>
+                        <h3>Perdu?</h3>
+                        <pre><code>git clone  https://github.com/antechrestos/CodingDojoNodeJs.git -b end_test_rest</code></pre>
+                    </section>
+                    <section>
+                        <h3>Pour aller plus loin</h3>
+                        <p>Test avec Mocha et selenium...</p>
+                    </section>
+                </section>
+                <section>
+                    <h2>Merci &agrave; vous</h2>
                 </section>
 			</div>
 		</div>
