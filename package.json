@@ -29,7 +29,8 @@
     "jade": "~1.9.2",
     "mongojs" :  "~0.18.0",
     "mocha" : "~2.2.5",
-    "should" : "~7.0.0"
+    "should" : "~7.0.0",
+    "mockery" : "~1.4.0"
   },
   "devDependencies": {},
   "bundleDependencies": [],
