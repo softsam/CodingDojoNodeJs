@@ -3,7 +3,9 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var html = require('./routes/html')
 
+var daos = require("./dao");
 
+var developer = require("./routes/rest/developer")
 
 var app = express();
 
@@ -14,6 +16,8 @@ app.use(favicon(__dirname + '/public/images/favicon.ico'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', html);
+
+app.use('/services/developers/', developer(daos.developers));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
