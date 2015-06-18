@@ -88,42 +88,110 @@ describe('Rest Developers Api', function(){
 
     describe('GET', function(){
         it('should not be found', function(done){
-            //TODO : Request a non existing developer
-            done();
+            request(app).get('/services/developers/Tyty/').end(function(err, res){
+                (err === null).should.be.false();
+                err.status.should.be.exactly(404);
+                done();
+            });
         });
         it('should be found', function(done){
-            //TODO : Request an existing developer
-            done();
+            request(app).get('/services/developers/Toto/').end(function(err, res){
+                (err === null).should.be.true();
+                res.status.should.be.exactly(200);
+                should.doesNotThrow(function(){
+                    JSON.parse(res.text);
+                });
+                var developer = JSON.parse(res.text);
+                developer.should.have.property("name", "Toto");
+                developer.should.have.property("gender", "male");
+                developer.should.have.property("agile", true);
+                done();
+            });
         });
     });
 
     describe('POST', function(){
         it('should be added', function(done){
-            //TODO Post a new developer and then test if it is added
-            done();
+            request(app).post('/services/developers/')
+                .type('form')
+                .send({name : 'Titi'})
+                .send({gender: 'male'})
+                .send({agile : false})
+                .redirects(0)//do not follow redirect
+                .end(function(err, res){
+                    res.status.should.be.exactly(302);
+                    err.status.should.be.exactly(302);
+                    res.header.should.have.property("location","/services/developers/Titi/" );
+                    done();
+                });
         });
         it('should be in error due to missing parameter', function(done){
-            //TODO Post a new developer without giving the name
-            done();
+            request(app).post('/services/developers/')
+                .type('form')
+                .send({gender: 'male'})
+                .send({agile : ""})
+                .redirects(0)//do not follow redirect
+                .end(function(err, res){
+                    res.status.should.be.exactly(400);
+                    err.status.should.be.exactly(400);
+                    done();
+                });
+
         });
         it('should be in error due to existing name in db', function(done){
-            //TODO Post a new developer giving an existing name
-            done();
+            request(app).post('/services/developers/')
+                .type('form')
+                .send({name : 'Toto'})
+                .send({gender: 'male'})
+                .send({agile : false})
+                .redirects(0)//do not follow redirect
+                .end(function(err, res){
+                    res.status.should.be.exactly(409);
+                    err.status.should.be.exactly(409);
+                    done();
+                });
         });
     });
 
 
     describe('PUT', function(){
         it('should be updated', function(done){
-            //TODO Update an existing developer
-            done();
+            request(app).put('/services/developers/Toto/')
+                .type('form')
+                .send({gender: 'male'})
+                //.send({agile : false})
+                .redirects(0)//do not follow redirect
+                .end(function(err, res){
+                    (err === null).should.be.true();
+                    res.status.should.be.exactly(205);
+                    developerCollection.findOne({
+                        _id: "Toto"
+                    }, function (errDb, developer) {
+                        (errDb === null).should.be.true();
+                        (developer !== null).should.be.true();
+                        developer.should.have.property("_id", "Toto");
+                        developer.should.have.property("gender", "male");
+                        developer.should.have.property("agile", false);
+                        done();
+                    });
+                });
         });
     });
 
     describe('DELETE', function(){
         it('should be updated', function(done){
-            //TODO Remove an existing developer
-            done();
+            request(app).delete('/services/developers/Toto/')
+                .end(function(err, res){
+                    (err === null).should.be.true();
+                    res.status.should.be.exactly(204);
+                    developerCollection.findOne({
+                        _id: "Toto"
+                    }, function (errDb, developer) {
+                        (err === null).should.be.true();
+                        (developer === null).should.be.true();
+                        done();
+                    });
+                });
         });
     });
 })

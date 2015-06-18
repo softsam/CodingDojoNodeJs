@@ -39,7 +39,7 @@ function loadDevelopersRouter(dao){
             badRequestError.message = "Bad Request";
             next(badRequestError);
         }else{
-            dao.create(req.body.name, req.body.gender, req.body.agile, function(err){
+            dao.create(req.body.name, req.body.gender, typeof req.body.agile != "undefined", function(err){
                 if(err != null){
                     error('developers - post -  error %s', err);
                     next(err);
@@ -62,7 +62,7 @@ function loadDevelopersRouter(dao){
                 }
         });
     }).put(function(req, res, next) {
-        dao.update(req.developerName, req.body.gender, req.body.agile, function(err, updated){
+        dao.update(req.developerName, req.body.gender, typeof req.body.agile != "undefined", function(err, updated){
             if(err != null){
                 error('developer - put - error %s', err);
                 next(err);

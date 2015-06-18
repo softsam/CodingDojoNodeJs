@@ -34,7 +34,17 @@ function buildDeveloperDao(collection){
     }
 
     function create(name, gender, agile, callback){
-        collection.insert({_id : name, gender: gender, agile: agile }, callback);
+        collection.insert({_id : name, gender: gender, agile: agile }, function(err){
+            if(err != null){
+                if(err.code == 11000){
+                    var alreadyExistsError = new Error(name+ ': Already existing');
+                    alreadyExistsError.status = 409;
+                    callback(alreadyExistsError);
+                }else
+                    callback(err);
+            }else
+                callback(null);
+        });
     }
 
     function update(name, gender, agile, callback) {
