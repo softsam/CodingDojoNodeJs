@@ -364,7 +364,7 @@ doctype html
                     </section>
                     <section>
                         Ouverture de l'objet base de donnée mongo
-                        <h3>Dans un fichier db.js</h3>
+                        <h3>Dans un fichier dao/db.js</h3>
                         <pre>
                             <code>
 var mongojs = require('mongojs');
@@ -387,6 +387,84 @@ module.exports =  {
                         </pre>
                     </section>
                     <section>
+                        <h3>Une dao</h3>
+                        <p>Dans dao/developer.js</p>
+                        <pre>
+                            <code>
+var debug= require('debug')('app:dao:db');
+debug.log = console.log.bind(console);
+
+
+exports = module.exports = buildDeveloperDao;
+
+
+function buildDeveloperDao(collection){
+
+    function convertDeveloperFrom(obj){
+        obj.name = obj._id;
+        delete obj._id;
+        return obj;
+    }
+
+    function list(callback){
+        collection.find().map(convertDeveloperFrom, callback);
+    }
+
+    function get(name, callback){
+        collection.findOne({
+            _id: name
+            },function(err, developer){
+                if(err)
+                    callback(err,null);
+                else if(developer == null){
+                    var notFoundError = Error();
+                    notFoundError.status = 404;
+                    notFoundError.message = "Not Found";
+                    callback(notFoundError, null);
+                }else
+                    callback(null, convertDeveloperFrom(developer));
+        });
+    }
+
+    function create(name, param1, param2, callback){
+        /*
+        collection.save({_id : name, field1: field1, param1: param2 }, callback);
+        */
+    }
+
+    function update(name, param1, param2, callback) {
+        //collection.update({_id: name}, {$set: {field1: param1, field2: param2}}, callback);
+    }
+
+    function remove(name, callback){
+        collection.remove({
+            _id: name
+        },true, callback);
+    }
+
+    return{
+        list : list,
+        get : get,
+        create : create,
+        update : update,
+        remove : remove
+    };
+
+}
+                            </code>
+                        </pre>
+                    </section>
+                    <section>
+                        <h3>Un index pour faciliter l'acc&egrave;s &agrave; la DAO</h3>
+                        <p>Dans dao/index.js</p>
+                        <pre>
+                            <code>
+var db = require("./db");
+exports = module.exports = {developers : require("./developer")(db.developer)};
+                            </code>
+                        </pre>
+                    </section>
+                    <section>
                         <h3>Un service rest</h3>
                         <p>Dans rest/developer.js</p>
                         <pre>
@@ -400,36 +478,71 @@ debug.log = console.log.bind(console);
 
 exports = module.exports = loadDevelopersRouter;
 
-function loadDevelopersRouter(db){
+
+
+
+function loadDevelopersRouter(dao){
     var router = express.Router();
 
-    //parsing parameter in uri
+
+
     router.param('developer_name', function(req, res, next, name) {
         req.developerName = name;
         next();
     });
 
-    //root route :)
+
+
     router.route('/').get(function(req, res, next){
-        //db.developer.find(function(err, developers) {});
-        next();
+        dao.list(function(err, developers) {
+            if(err != null){
+                error('developers -get -  error %s', err);
+                next(err);
+            }else{
+                debug('developers - get -  found %d', developers.length);
+                res.json(developers);
+            }
+        });
+
     }).post(function(req, res, next){
-        //db.developer.save(developer, function(err){
-        next();
+        //call dao.create
+        var error = Error();
+        error.status = 501;
+        error.message = "Not Implemented";
+        next(err);
     });
 
-    //specific element
     router.route('/:developer_name/').get(function(req, res, next) {
-        //db.developer.findOne({_id: req.developerName}, function (err, developer) {
-        next();
+        var developerName = req.developerName;
+        dao.get(developerName
+                , function (err, developer) {
+                    if(err != null){
+                        error('developer - get - error %s', err);
+                        next(err);
+                    }else{
+                        debug('developer - get - %s - found', developerName);
+                        res.json(developer);
+                    }
+                });
     }).put(function(req, res, next) {
-        //db.developer.update({_id: req.developer_name}, {$set: {field1: update.field1, field2: update.field2}}, function(err, updated){
-        next();
+        //call dao.update
+        var error = Error();
+        error.status = 501;
+        error.message = "Not Implemented";
+        next(err);
+
     }).delete(function(req, res, next){
-        //db.developer.remove({_id: req.developerName},true, function (err) {
-        next();
+        //call dao.remove
+        var error = Error();
+        error.status = 501;
+        error.message = "Not Implemented";
+        next(err);
     });
+
+
+    debug('developers loaded');
     return router;
+
 }
                             </code>
                         </pre>
@@ -438,11 +551,11 @@ function loadDevelopersRouter(db){
                         <h3>Routing in app</h3>
                         <pre>
                             <code>
-var db = require("./db");
+var daos = require("./dao");
 
 var developer = require("./routes/rest/developer");
 //...
-app.use('/services/developers/', developer(db));
+app.use('/services/developers/', developer(daos.developers));
                             </code>
                         </pre>
                     </section>
@@ -468,6 +581,7 @@ app.use('/services/developers/', developer(db));
                                 <ul>
                                     <li>assert: native en node js, minimaliste</li>
                                     <li>chai: librairie d'assertion TDD/BDD</li>
+                                    <li>should: librairie d'assertion BDD</li>
                                 </ul>
                             </li>
                         </ul>
@@ -485,17 +599,29 @@ app.use('/services/developers/', developer(db));
                         <pre><code>node_modules/mocha/bin/mocha</code></pre>
                     </section>
                     <section>
-                        <h3>Test application</h3>
-                        <p>Ajouter les librairies suivantes</p>
+                        <h3>Test Dao</h3>
+                        <p>Pr&eacute;requis</p>
                         <ul>
-                            <li>superagent 1.2.0: client l&eacute;ger http</li>
-                            <li>mockery 1.4.0: permet de contr&ocirc;ler les chargements des d&eacute;pendances</li>
+                            <li>Ajouter la librairie mockery 1.4.0: permet de contr&ocirc;ler les chargements des d&eacute;pendances</li>
+                            <li>R&eacute;cu&ecirc;p&eacute;rer le code
+                                <pre><code>git clone  https://github.com/antechrestos/CodingDojoNodeJs.git -b init_test_dao</code></pre>
+                            </li>
+                        </ul>
+                        <p>Coder les tests sur le get/create/remove (penser &agrave; lancer mongo)</p>
+                        <p>remplacer should.be.true par should.be.true()</p>
+                        <p>* Trouver l'erreur dans dao.create* </p>
+                    </section>
+                    <section>
+                        <h3>Test Rest</h3>
+                        <p>Pr&eacute;requis</p>
+                        <ul>
+                            <li>Ajouter la librairie npm install supertest 1.0.1: client l&eacute;ger http</li>
                             <li>R&eacute;cu&ecirc;p&eacute;rer le code
                                 <pre><code>git clone  https://github.com/antechrestos/CodingDojoNodeJs.git -b init_test_rest</code></pre>
                             </li>
                         </ul>
-                        <p>Coder les tests sur le POST/PUT/DELETE (penser &agrave; lancer mongo)</p>
-                        <p>* Attention aux bugs qui existent dans le code *</p>
+                        <p>Coder les tests sur le GET/POST/PUT/DELETE (penser à lancer mongo)</p>
+                        <p>* Trouver l'erreur dans POST cr&eacute;tion de ressource existante), ainsi que le probl&egrave; de gestion du champs agile dans les formulairesurl encoded *</p>
                     </section>
                     <section>
                         <h3>Perdu?</h3>
