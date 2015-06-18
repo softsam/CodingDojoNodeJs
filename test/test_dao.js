@@ -20,15 +20,18 @@ var dbHost = 'localhost';
 var dbPort = 27017;
 var dbName = 'CodingDojoNodeJsTest';
 
-db = mongojs("mongodb://"+dbHost+':'+dbPort+'/'+dbName+"?connectTimeoutMS=200");
 
 
 
-developerCollection = db.collection('developer');
 
 describe('Dao', function(){
 
     before(function(done) {
+        db = mongojs("mongodb://"+dbHost+':'+dbPort+'/'+dbName+"?connectTimeoutMS=200");
+
+
+
+        developerCollection = db.collection('developer');
 
         mockery.enable(); // Active mockery au debut des tests
         mockery.warnOnUnregistered(false);
@@ -74,8 +77,8 @@ describe('Dao', function(){
     describe('list', function() {
         it('should return three objects', function(done) {
             dao.list(function(err,developers){
-                (err === null).should.be.true;
-                (developers === null).should.be.false;
+                (err === null).should.be.true();
+                (developers === null).should.be.false();
                 developers.length.should.be.exactly(3);
                 done();
             });
@@ -84,38 +87,76 @@ describe('Dao', function(){
 
     describe('get', function(){
         it('should not be found', function(done){
-            //TODO Get a non existing developer
-            done();
+            dao.get("Tyty", function(err, developer){
+                (err !== null).should.be.true();
+                (developer === null).should.be.true();
+                done();
+            });
         });
         it('should be found', function(done){
-            //TODO Get an existing user
-            done();
+            dao.get("Toto", function(err, developer){
+                (err === null).should.be.true();
+                (developer !== null).should.be.true();
+                developer.should.have.property("name", "Toto");
+                developer.should.have.property("gender", "male");
+                developer.should.have.property("agile", true);
+                done();
+            });
         });
     });
 
     describe('create', function(){
         it('should be added', function(done){
-            //TODO Create a developer and then test if it is added
-            done();
+            dao.create('Titi', "male", false, function(err){
+                (err === null).should.be.true();
+                dao.get("Titi", function(err, developer){
+                    (err === null).should.be.true();
+                    (developer === null).should.be.false();
+                    developer.should.have.property("name", "Titi");
+                    developer.should.have.property("gender", "male");
+                    developer.should.have.property("agile", false);
+                    done();
+                });
+            });
         });
+
         it('should be in error due to existing name in db', function(done){
-            //TODO Create a developer giving an existing name
-            done();
+            dao.create('Toto', "male", false, function(err){
+                (err !== null).should.be.true()
+                console.log("err="+JSON.stringify(err)+"\n");
+                done();
+            });
         });
     });
 
 
     describe('update', function(){
         it('should be updated', function(done){
-            //TODO Update an existing developer
-            done();
+            dao.update("Tata", "female", false, function(err, updated){
+                (err === null).should.be.true();
+                dao.get("Tata", function(err, developer){
+                    (err === null).should.be.true();
+                    (developer === null).should.be.false();
+                    developer.should.have.property("name", "Tata");
+                    developer.should.have.property("gender", "female");
+                    developer.should.have.property("agile", false);
+                    done();
+                });
+            });
         });
     });
 
     describe('remove', function(){
         it('should be removed', function(done){
-            //TODO Remove an existing developer
-            done();
+            dao.remove("Tutu", function(err){
+                (err === null).should.be.true();
+                dao.get("Tutu", function(err, developer){
+                    (err !== null).should.be.true();
+                    (developer === null).should.be.true();
+                    err.status.should.be.exactly(404);
+                    done();
+                });
+            })
         });
     });
-})
+});

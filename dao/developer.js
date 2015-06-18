@@ -34,7 +34,7 @@ function buildDeveloperDao(collection){
     }
 
     function create(name, gender, agile, callback){
-        collection.save({_id : name, gender: gender, agile: agile }, callback);
+        collection.insert({_id : name, gender: gender, agile: agile }, callback);
     }
 
     function update(name, gender, agile, callback) {
