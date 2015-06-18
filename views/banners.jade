@@ -1,0 +1,21 @@
+script.
+    function displayBanner(idModal, message, timeout) {
+        var messageContainer = $(idModal);
+        messageContainer.html(message);
+        messageContainer.show();
+        setTimeout(function () {
+            messageContainer.hide();
+        }, typeof timeout === "undefined" ? 5000 : timeout);
+    }
+
+    function displayMessage(message) {
+        $("#dangerMessage").hide();
+        displayBanner("#successMessage", message);
+    }
+
+    function displayError(message) {
+        $("#successMessage").hide();
+        displayBanner("#dangerMessage", message);
+    }
+div#successMessage(class="alert alert-success" hidden="true")
+div#dangerMessage(class="alert alert-danger" hidden="true")
