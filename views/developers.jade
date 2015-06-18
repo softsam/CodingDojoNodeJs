@@ -1,0 +1,168 @@
+extends layout
+block extra_scripts
+    script(src="/js/jquery.form.js")
+    script.
+
+        function deleteDeveloper(developer){
+            $.ajax({
+                url: "/services/developers/" + developer.name + "/",
+                type: "DELETE",
+                success: function (result, status, jqXHR) {
+                    displayMessage("Developer " + developer.name + " deleted");
+                    listDevelopers();
+                },
+                error: function (error, status, jqXHR) {
+                    console.log(error);
+                    displayError("Error while deleting developer" + developer.name);
+                }
+            });
+        }
+
+
+        function updateDeveloper(developer){
+            $("#editDeveloperForm").attr("action", "/services/developers/"+developer.name+"/");
+            $("#editTitle").html(developer.name);
+            $("#editAgile").prop('checked', developer.agile);
+            $("#editGender").val(developer.gender);
+            $("#edit-developer-modal").modal("show");
+        }
+
+        function listDevelopers(){
+            $.ajax({
+                url : "/services/developers",
+                type : "GET",
+                success: function (developers, status, jqXHR) {
+                    var container = $("#developers_content");
+                    container.empty();
+                    if(developers.length == 0){
+                        $("#developer_header").hide();
+                        displayMessage("No developer found");
+                    }else{
+                        $("#developer_header").show();
+                        $.each(developers, function(idx, developer){
+                            var col = $("<div>").addClass("col-xs-5 clickable").html(developer.name);
+                            col.on("click", function(e){
+                                updateDeveloper(developer);
+                            });
+                            container.append(col);
+                            container.append($("<div>").addClass("col-xs-2").html(developer.gender));
+                            container.append($("<div>").addClass("col-xs-2").html(developer.agile? "Agile" : "Not agile"));
+                            //delete link
+                            col = $("<div>").addClass("col-xs-3 clickable").append($("<span>", {
+                                class: "glyphicon glyphicon-floppy-remove",
+                                title: "Delete"
+                            }));
+
+                            col.on("click", function(e){
+                                e.preventDefault();
+                                deleteDeveloper(developer);
+                            });
+                            container.append(col);
+                        });
+                    }
+                },
+                error :function(error, status, jqXHR) {
+                    console.log(error);
+                    displayError("Error while listing developers");
+                }
+            });
+        }
+
+        window.onload = function(){
+            setCurrentTabActive();
+            listDevelopers();
+            $('#addDeveloperForm').ajaxForm({
+                clearForm : true,
+                success : function(responseText , statusText, xhr , $form){
+                    displayMessage("Developer created");
+                    listDevelopers();
+                },
+                error : function(response){
+                    if(response.status == 409)
+                        displayError("The developer already exists");
+                    else
+                        displayError("Error while creating developer: "+response.status);
+                    console.error("error: "+JSON.stringify(response));
+                },
+                complete: function(xhr) {
+                    console.log("complete: "+xhr.responseText);
+                    $('#add-developer-modal').modal('hide');
+                }
+            });
+            $("#editDeveloperForm").ajaxForm({
+                type : "PUT",
+                success : function(responseText , statusText, xhr , $form){
+                    displayMessage("Developer updated");
+                    listDevelopers();
+                },
+                error : function(response){
+                    displayError("Error while updating developer: "+response.status);
+                    console.error("error: "+JSON.stringify(response));
+                },
+                complete: function(xhr) {
+                    console.log("complete: "+xhr.responseText);
+                    $('#edit-developer-modal').modal('hide');
+                }
+            })
+        };
+block content
+    div#add-developer-modal(class="modal fade")
+        div.modal-dialog
+            div.modal-content
+                form#addDeveloperForm(role="form" method="post" action="/services/developers/")
+                    div.modal-header
+                        button.close(type="button", data-dismiss="modal")
+                            span(aria-hidden="true") &times;
+                            span.sr-only Close
+                        h4.modal-title Create developer
+                    div.modal-body
+                        div(class="form-group required")
+                            label Name
+                            input(name="name" class="form-control" placeholder="Developer name" type="text" value="" required="required")
+                        div(class="form-group required")
+                            label Gender
+                            select(name="gender" required="required")
+                                option(value="male") Male
+                                option(value="female") Female
+                        div(class="form-group checkbox")
+                            label
+                                input(type="checkbox", name="agile")
+                                | Agile
+                    div.modal-footer
+                        button(type="button" class="btn" data-dismiss="modal" aria-hidden="true") Close
+                        input(type="submit" class="btn btn-primary" value!="Create")
+    div#edit-developer-modal(class="modal fade")
+        div.modal-dialog
+            div.modal-content
+                form#editDeveloperForm(role="form")
+                    div.modal-header
+                        button.close(type="button", data-dismiss="modal")
+                            span(aria-hidden="true") &times;
+                            span.sr-only Close
+                        h4.modal-title#editTitle
+                    div.modal-body
+                        div(class="form-group required")
+                            label Gender
+                            select#editGender(name="gender" required="required")
+                                option(value="male") Male
+                                option(value="female") Female
+                        div(class="form-group checkbox")
+                            label
+                                input#editAgile(type="checkbox", name="agile")
+                                | Agile
+                    div.modal-footer
+                        button(type="button" class="btn" data-dismiss="modal" aria-hidden="true") Close
+                        input(type="submit" class="btn btn-primary" value!="Update")
+    button(class="btn btn-primary"  type="button" data-toggle="modal" data-target="#add-developer-modal") Create developer
+    div.row
+        div.col-xs-12
+            h2 Developers
+    div.row#developer_header
+        div.col-xs-5
+            label Developer Name
+        div.col-xs-2
+            label Gender
+        div.col-xs-2
+            label Agile
+        div.col-xs-3
+    div.row#developers_content

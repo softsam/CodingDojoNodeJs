@@ -33,14 +33,12 @@ function buildDeveloperDao(collection){
         });
     }
 
-    function create(name, param1, param2, callback){
-        /*
-         collection.save({_id : name, field1: field1, param1: param2 }, callback);
-         */
+    function create(name, gender, agile, callback){
+        collection.save({_id : name, gender: gender, agile: agile }, callback);
     }
 
-    function update(name, param1, param2, callback) {
-        //collection.update({_id: name}, {$set: {field1: param1, field2: param2}}, callback);
+    function update(name, gender, agile, callback) {
+        collection.update({_id: name}, {$set: {gender: gender, agile: agile}}, callback);
     }
 
     function remove(name, callback){

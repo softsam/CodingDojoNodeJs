@@ -1,4 +1,9 @@
 extends layout
+block extra_scripts
+    script.
+        window.onload = function(){
+            setCurrentTabActive();
+        };
 block content
     h2 Hello
         small you

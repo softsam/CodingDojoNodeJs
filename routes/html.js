@@ -16,4 +16,9 @@ router.get('/', function(req, res) {
 });
 
 
+router.get('/developers/', function(req, res) {
+    debug('serving developers');
+    res.render('developers', {title: 'Developers' })
+});
+
 module.exports = router;
