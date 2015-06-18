@@ -23,7 +23,9 @@
   "dependencies": {
     "express": "~4.12.4",
     "serve-favicon": "~2.2.1",
-    "debug": "~2.1.1"
+    "debug": "~2.1.1",
+    "jade": "~1.9.2"
+
   },
   "devDependencies": {},
   "bundleDependencies": [],

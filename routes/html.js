@@ -12,7 +12,7 @@ debug.log = console.log.bind(console);
 /* GET home page. */
 router.get('/', function(req, res) {
     debug('serving hello');
-    res.sendfile('public/html/hello.html', {root: __dirname+'/../' })
+    res.render('hello', {title: 'Jade Hello' })
 });
 
 
