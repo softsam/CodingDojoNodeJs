@@ -1,106 +1,132 @@
 <!doctype html>
 <html lang="en">
 
-	<head>
-		<meta charset="utf-8">
+<head>
+	<meta charset="utf-8">
 
-		<title>Coding dojo NodeJs</title>
+	<title>Coding dojo NodeJs</title>
 
-		<meta name="description" content="Coding dojo NodeJs">
-		<meta name="author" content="Benjamin Einaudi">
+	<meta name="description" content="Coding dojo NodeJs">
+	<meta name="author" content="Benjamin Einaudi">
 
-		<meta name="apple-mobile-web-app-capable" content="yes" />
-		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<link rel="stylesheet" href="reveal.js-2.5.0/css/reveal.min.css">
-		<link rel="stylesheet" href="reveal.js-2.5.0/css/theme/orange.css" id="theme">
-        <link type="text/css" rel="stylesheet" href="highlight/styles/default.css"/>
-        <link type="text/css" rel="stylesheet" href="highlight/styles/darkula.css"/>
-
-
-
-		<link type="text/css" rel="stylesheet" href="shCoreCustom.css"/>
+	<link rel="stylesheet" href="reveal.js-2.5.0/css/reveal.min.css">
+	<link rel="stylesheet" href="reveal.js-2.5.0/css/theme/orange.css" id="theme">
+	<link type="text/css" rel="stylesheet" href="highlight/styles/default.css" />
+	<link type="text/css" rel="stylesheet" href="highlight/styles/darkula.css" />
 
 
 
-		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
-		<script>
-			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
-		</script>
+	<link type="text/css" rel="stylesheet" href="shCoreCustom.css" />
 
-		<!--[if lt IE 9]>
+
+
+	<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+	<script>
+		document.write('<link rel="stylesheet" href="css/print/' + (window.location.search.match(/print-pdf/gi) ? 'pdf' : 'paper') + '.css" type="text/css" media="print">');
+	</script>
+
+	<!--[if lt IE 9]>
 		<script src="reveal.js-2.5.0/lib/js/html5shiv.js"></script>
 		<![endif]-->
-        <script src="reveal.js-2.5.0/lib/js/head.min.js"></script>
-        <script src="reveal.js-2.5.0/js/reveal.min.js"></script>
-        <script src="jquery.min.js"></script>
+	<script src="reveal.js-2.5.0/lib/js/head.min.js"></script>
+	<script src="reveal.js-2.5.0/js/reveal.min.js"></script>
+	<script src="jquery.min.js"></script>
 
 
 	<script type="text/javascript" src="highlight/highlight.pack.js"></script>
 	<script type="text/javascript">
-        window.onload = function(){
-            //hljs.initHighlightingOnLoad();
-            $('pre code').each(function(i, block) {
-                hljs.highlightBlock(block);
-            });
-            // Full list of configuration options available here:
-            // https://github.com/hakimel/reveal.js#configuration
-            Reveal.initialize({
-                controls: false,
-                progress: true,
-                history: true,
-                center: true,
-                width: 1572,
+		window.onload = function () {
+			//hljs.initHighlightingOnLoad();
+			$('pre code').each(function (i, block) {
+				hljs.highlightBlock(block);
+			});
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: false,
+				progress: true,
+				history: true,
+				center: true,
+				width: 1572,
 
-                theme: Reveal.getQueryHash().theme || 'orange', // available themes are in /css/theme
-                transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+				theme: Reveal.getQueryHash().theme || 'orange', // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
 
-                // Optional libraries used to extend on reveal.js
-                dependencies: [
-                    { src: 'reveal.js-2.5.0/lib/js/classList.js', condition: function() { return !document.body.classList; } },
-                    { src: 'reveal.js-2.5.0/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-                    { src: 'reveal.js-2.5.0/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{
+						src: 'reveal.js-2.5.0/lib/js/classList.js',
+						condition: function () {
+							return !document.body.classList;
+						}
+					},
+					{
+						src: 'reveal.js-2.5.0/plugin/markdown/marked.js',
+						condition: function () {
+							return !!document.querySelector('[data-markdown]');
+						}
+					},
+					{
+						src: 'reveal.js-2.5.0/plugin/markdown/markdown.js',
+						condition: function () {
+							return !!document.querySelector('[data-markdown]');
+						}
+					},
                     // { src: 'reveal.js-2.5.0/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-                    { src: 'reveal.js-2.5.0/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-                    { src: 'reveal.js-2.5.0/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+					{
+						src: 'reveal.js-2.5.0/plugin/zoom-js/zoom.js',
+						async: true,
+						condition: function () {
+							return !!document.body.classList;
+						}
+					},
+					{
+						src: 'reveal.js-2.5.0/plugin/notes/notes.js',
+						async: true,
+						condition: function () {
+							return !!document.body.classList;
+						}
+					}
                 ]
-            });
+			});
 
-        }
+		}
+	</script>
 
-    </script>
+</head>
 
-	</head>
+<body>
+	<div class="reveal">
 
-	<body>
-		<div class="reveal">
+		<!-- Any section element inside of this container is displayed as a slide -->
+		<div class="slides">
 
-			<!-- Any section element inside of this container is displayed as a slide -->
-			<div class="slides">
+			<section class="home">
+				<h1>Node Js</h1>
+				<h3>Coding Dojo - Node Js</h3>
+				<small>Animé par vous m&ecirc;me</small>
+			</section>
 
-				<section class="home">
-					<h1>Node Js</h1>
-					<h3>Coding Dojo - Node Js</h3>
-					<small>Animée par vous m&ecirc;me</small>
-				</section>
-
+			<section>
 				<section>
-					<section>
-						<h2>Node JS</h2>
-						<div>
-                            <ul>
-                                <li>Nodejs est un serveur d'application qui héberge des applications écrites en javascript. </li>
-                                <li>Il s'éxécute sur un thread unique et les opération E/S sont non bloquantes</li>
-                                <li>Il vient avec npm (gestionnaire de paquets) qui se charge des dépendances</li>
-                            </ul>
-						</div>
-					</section>
-                    <section>
-                        <h2>exemple d'une opération d'IO non bloquante</h2>
-                        <div>
-                            <pre>
+					<h2>Node JS</h2>
+					<div>
+						<ul>
+							<li>Nodejs est un serveur d'application qui héberge des applications écrites en javascript. </li>
+							<li>Il s'exécute sur un thread unique et les opération E/S sont non bloquantes</li>
+							<li>Il vient avec npm (gestionnaire de paquets) qui se charge des dépendances</li>
+						</ul>
+					</div>
+				</section>
+				<section>
+					<h2>exemple d'une opération d'IO non bloquante</h2>
+					<div>
+						<pre>
                                 <code>
 //appel à l'operation
 someIoOperation(param1,param2, param3,
@@ -114,55 +140,58 @@ someIoOperation(param1,param2, param3,
 });
                                 </code>
                             </pre>
-                        </div>
-                    </section>
+					</div>
 				</section>
+			</section>
 
 
+			<section>
 				<section>
-					<section>
-						<h2>
+					<h2>
 							Prérequis
 						</h2>
-                    </section>
-                    <section>
-                        <ul>
-                            <li>Installer <a href="http://nodejs.org/dist/v0.10.25/">nodejs 0.10.25 (iso kermit)</a></li>
-                            <li>Pour eburo: Installer le <a href="http://recommendations.si.fr.intraorange/environnement-de-d-veloppement-web/#cntlm">proxy cntlm</a></li>
-                            <li>Un éditeur javascript(Bracket avec extension extension beutify, IntelliJ Ultimate, Nodeeclipse...)</li>
-                            <li><a href="http://www.mongodb.org/downloads#previous">MongoDb 2.4</a></li>
-                        </ul>
-					</section>
 				</section>
-
-
 				<section>
-					<section>
-						<h2>
+					<ul>
+						<li>Installer <a href="http://nodejs.org/dist/v0.10.25/">nodejs 0.10.25 (iso kermit)</a>
+						</li>
+						<li>Pour eburo: Installer le <a href="http://recommendations.si.fr.intraorange/environnement-de-d-veloppement-web/#cntlm">proxy cntlm</a>
+						</li>
+						<li>Un éditeur javascript(Bracket avec extension extension beautify, IntelliJ Ultimate, Nodeeclipse...)</li>
+						<li><a href="http://www.mongodb.org/downloads#previous">MongoDb 2.4</a>
+						</li>
+					</ul>
+				</section>
+			</section>
+
+
+			<section>
+				<section>
+					<h2>
                             Init
 						</h2>
-					</section>
-                    <section>
-                        <h2>Récupération du code (tag init)</h2>
-                        <pre><code>git clone  https://github.com/antechrestos/CodingDojoNodeJs.git -b init</code></pre>
-                    </section>
-                    <section>
-                        <h2>Arborescence</h2>
-                        <ul>
-                            <li>package.json : descriptif de l'application</li>
-                            <li>node_modules: là où seront installés les librairies requises. Taper npm install à la racine du projet.</li>
-                        </ul>
-                    </section>
-                    <section>
-                        <h2>app.js: l'application express</h2>
-                        <p>Notion de handler</p>
-                        <pre>
+				</section>
+				<section>
+					<h2>Récupération du code (tag init)</h2>
+					<pre><code>git clone  https://github.com/antechrestos/CodingDojoNodeJs.git -b init</code></pre>
+				</section>
+				<section>
+					<h2>Arborescence</h2>
+					<ul>
+						<li>package.json : descriptif de l'application</li>
+						<li>node_modules: là où seront installées les librairies requises. Taper npm install à la racine du projet.</li>
+					</ul>
+				</section>
+				<section>
+					<h2>app.js: l'application express</h2>
+					<p>Notion de handler</p>
+					<pre>
                             <code>
 function(req, res, next){
 }
                             </code>
                         </pre>
-                        <pre>
+					<pre>
                             <code>
 var express = require('express');
 var path = require('path');
@@ -218,10 +247,10 @@ else{
 module.exports = app;
                             </code>
                         </pre>
-                    </section>
-                    <section>
-                        <h2>server.js</h2>
-                        <pre>
+				</section>
+				<section>
+					<h2>server.js</h2>
+					<pre>
                             <code>
 #!/bin/env node
 
@@ -257,42 +286,43 @@ server.listen(port, host, function () {
 
                             </code>
                         </pre>
-                    </section>
-                    <section>
-                        <h2>Exécution</h2>
-                        <ul>
-                            <li>Démarrage <pre><code>node server.js</code></pre></li>
-                            <li>Aller sur: http://localhost:8080</li>
-                        </ul>
-                    </section>
-                    <section>
-                        <h2>Ouf!</h2>
-                    </section>
+				</section>
+				<section>
+					<h2>Exécution</h2>
+					<ul>
+						<li>Démarrage <pre><code>node server.js</code></pre>
+						</li>
+						<li>Aller sur: http://localhost:8080</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Ouf!</h2>
+				</section>
 
-                </section>
-                <section>
-                    <section>
-                        <h2>Jade</h2>
-                    </section>
-                    <section>
-                        <h3>Ajout dépendance 1.9.2</h3>
-                        <ul>
-                            <li>Déclaration</li>
-                            <li>Installation</li>
-                        </ul>
-                    </section>
-                    <section>
-                        <h3>Déclaration Jade dans application</h3>
-                        <pre>
+			</section>
+			<section>
+				<section>
+					<h2>Jade</h2>
+				</section>
+				<section>
+					<h3>Ajout dépendance 1.9.2</h3>
+					<ul>
+						<li>Déclaration</li>
+						<li>Installation</li>
+					</ul>
+				</section>
+				<section>
+					<h3>Déclaration Jade dans application</h3>
+					<pre>
                             <code>
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
                             </code>
                         </pre>
-                    </section>
-                    <section>
-                        <h3>Déclaration de la vue</h3>
-                        <pre>
+				</section>
+				<section>
+					<h3>Déclaration de la vue</h3>
+					<pre>
                             <code>
 doctype html
     html
@@ -303,14 +333,14 @@ doctype html
                 small you
                             </code>
                         </pre>
-                    </section>
-                    <section>
-                        <h3>Perdu?</h3>
-                        <pre><code>git clone  https://github.com/antechrestos/CodingDojoNodeJs.git -b init_jade</code></pre>
-                    </section>
-                    <section>
-                        <h3>Exemples</h3>
-                        <pre>
+				</section>
+				<section>
+					<h3>Perdu?</h3>
+					<pre><code>git clone  https://github.com/antechrestos/CodingDojoNodeJs.git -b init_jade</code></pre>
+				</section>
+				<section>
+					<h3>Exemples</h3>
+					<pre>
                             <code>
 doctype html
     html(lang="en")
@@ -334,38 +364,39 @@ doctype html
                 and powerful features.
                             </code>
                         </pre>
-                    </section>
-                    <section>
-                        <h3>Exercice</h3>
-                        <p>Réécrire <i>hello.html</i> avec jade</p>
-                        <ul>
-                            <li>banners.jade: contient les banner warning et error et le javascript associé</li>
-                            <li>header.jade: contient les banner warning et error et le javascript associé</li>
-                            <li>layout.jade: contient le squelette de la page (utiliser blocks pour la notion de template)</li>
-                            <li>hello.jade: étend layout.jade et définit le block content définit dans layout.jade</li>
-                        </ul>
-                    </section>
-                    <section>
-                        <h3>Perdu?</h3>
-                        <pre><code>git clone  https://github.com/antechrestos/CodingDojoNodeJs.git -b exercice_jade</code></pre>
-                    </section>
-                </section>
-                <section>
-                    <section>
-                        <h2>MongoDb</h2>
-                    </section>
-                    <section>
-                        <h3>Ajout dépendance 0.18.0</h3>
-                        <ul>
-                            <li>Déclaration</li>
-                            <li>Installation (soit par npm install, soit décompression de mongojs.zip dans node_modules</li>
-                            <li>Démarrage mongo sur port 27017 (défaut)<pre><code>mongod --dbpath db.data/ --port 27017</code></pre></li>
-                        </ul>
-                    </section>
-                    <section>
-                        Ouverture de l'objet base de donnée mongo
-                        <h3>Dans un fichier dao/db.js</h3>
-                        <pre>
+				</section>
+				<section>
+					<h3>Exercice</h3>
+					<p>Réécrire <i>hello.html</i> avec jade</p>
+					<ul>
+						<li>banners.jade: contient les banner warning et error et le javascript associé</li>
+						<li>header.jade: contient les banner warning et error et le javascript associé</li>
+						<li>layout.jade: contient le squelette de la page (utiliser blocks pour la notion de template)</li>
+						<li>hello.jade: étend layout.jade et définit le block content défini dans layout.jade</li>
+					</ul>
+				</section>
+				<section>
+					<h3>Perdu?</h3>
+					<pre><code>git clone  https://github.com/antechrestos/CodingDojoNodeJs.git -b exercice_jade</code></pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>MongoDb</h2>
+				</section>
+				<section>
+					<h3>Ajout dépendance 0.18.0</h3>
+					<ul>
+						<li>Déclaration</li>
+						<li>Installation (soit par npm install, soit décompression de mongojs.zip dans node_modules</li>
+						<li>Démarrage mongo sur port 27017 (défaut)<pre><code>mongod --dbpath db.data/ --port 27017</code></pre>
+						</li>
+					</ul>
+				</section>
+				<section>
+					Ouverture de l'objet base de donnée mongo
+					<h3>Dans un fichier dao/db.js</h3>
+					<pre>
                             <code>
 var mongojs = require('mongojs');
 var debug= require('debug')('app:db');
@@ -385,11 +416,11 @@ module.exports =  {
 
                             </code>
                         </pre>
-                    </section>
-                    <section>
-                        <h3>Une dao</h3>
-                        <p>Dans dao/developer.js</p>
-                        <pre>
+				</section>
+				<section>
+					<h3>Une dao</h3>
+					<p>Dans dao/developer.js</p>
+					<pre>
                             <code>
 var debug= require('debug')('app:dao:db');
 debug.log = console.log.bind(console);
@@ -453,21 +484,21 @@ function buildDeveloperDao(collection){
 }
                             </code>
                         </pre>
-                    </section>
-                    <section>
-                        <h3>Un index pour faciliter l'acc&egrave;s &agrave; la DAO</h3>
-                        <p>Dans dao/index.js</p>
-                        <pre>
+				</section>
+				<section>
+					<h3>Un index pour faciliter l'acc&egrave;s &agrave; la DAO</h3>
+					<p>Dans dao/index.js</p>
+					<pre>
                             <code>
 var db = require("./db");
 exports = module.exports = {developers : require("./developer")(db.developer)};
                             </code>
                         </pre>
-                    </section>
-                    <section>
-                        <h3>Un service rest</h3>
-                        <p>Dans rest/developer.js</p>
-                        <pre>
+				</section>
+				<section>
+					<h3>Un service rest</h3>
+					<p>Dans rest/developer.js</p>
+					<pre>
                             <code>
 var express = require('express');
 var debug= require('debug')('app:rest:developer');
@@ -546,10 +577,10 @@ function loadDevelopersRouter(dao){
 }
                             </code>
                         </pre>
-                    </section>
-                    <section>
-                        <h3>Routing in app</h3>
-                        <pre>
+				</section>
+				<section>
+					<h3>Routing in app</h3>
+					<pre>
                             <code>
 var daos = require("./dao");
 
@@ -558,86 +589,86 @@ var developer = require("./routes/rest/developer");
 app.use('/services/developers/', developer(daos.developers));
                             </code>
                         </pre>
-                    </section>
-                    <section>
-                        <h3>Perdu?</h3>
-                        <pre><code>git clone  https://github.com/antechrestos/CodingDojoNodeJs.git -b template_rest</code></pre>
-                    </section>
-                    <section>
-                        <h3>Exercice</h3>
-                        <p>Impl&eacute;menter GET/POST/PUT/DELETE et une page d&eacute;di&eacute;e</p>
-                    </section>
-                </section>
-                <section>
-                    <section>
-                        <h2>Tests</h2>
-                    </section>
+				</section>
+				<section>
+					<h3>Perdu?</h3>
+					<pre><code>git clone  https://github.com/antechrestos/CodingDojoNodeJs.git -b template_rest</code></pre>
+				</section>
+				<section>
+					<h3>Exercice</h3>
+					<p>Impl&eacute;menter GET/POST/PUT/DELETE et une page d&eacute;di&eacute;e</p>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Tests</h2>
+				</section>
 
-                    <section>
-                        <h3>Ce dont nous avons besoin pour commencer</h3>
-                        <ul>
-                            <li>Un framework de test: Mocha 2.2.5</li>
-                            <li>Une librairie d'assertion:
-                                <ul>
-                                    <li>assert: native en node js, minimaliste</li>
-                                    <li>chai: librairie d'assertion TDD/BDD</li>
-                                    <li>should: librairie d'assertion BDD</li>
-                                </ul>
-                            </li>
-                        </ul>
+				<section>
+					<h3>Ce dont nous avons besoin pour commencer</h3>
+					<ul>
+						<li>Un framework de test: Mocha 2.2.5</li>
+						<li>Une librairie d'assertion:
+							<ul>
+								<li>assert: native en node js, minimaliste</li>
+								<li>chai: librairie d'assertion TDD/BDD</li>
+								<li>should: librairie d'assertion BDD</li>
+							</ul>
+						</li>
+					</ul>
 
-                    </section>
-                    <section>
-                        <h3>Code</h3>
-                        <label>Récup&eacute;rer le code qui impl&eacute;mente les GET/POST/PUT/DELETE sur les d&eacute;veloppers ainsi qu'une page jade</label>
-                        <pre><code>git clone  https://github.com/antechrestos/CodingDojoNodeJs.git -b init_test</code></pre>
-                        <p>Installer les deux librairies</p>
-                        <pre><code>npm install</code></pre>
-                    </section>
-                    <section>
-                        <h3>Lancement des tests</h3>
-                        <pre><code>node_modules/mocha/bin/mocha</code></pre>
-                    </section>
-                    <section>
-                        <h3>Test Dao</h3>
-                        <p>Pr&eacute;requis</p>
-                        <ul>
-                            <li>Ajouter la librairie mockery 1.4.0: permet de contr&ocirc;ler les chargements des d&eacute;pendances</li>
-                            <li>R&eacute;cu&ecirc;p&eacute;rer le code
-                                <pre><code>git clone  https://github.com/antechrestos/CodingDojoNodeJs.git -b init_test_dao</code></pre>
-                            </li>
-                        </ul>
-                        <p>Coder les tests sur le get/create/remove (penser &agrave; lancer mongo)</p>
-                        <p>remplacer should.be.true par should.be.true()</p>
-                        <p>* Trouver l'erreur dans dao.create* </p>
-                    </section>
-                    <section>
-                        <h3>Test Rest</h3>
-                        <p>Pr&eacute;requis</p>
-                        <ul>
-                            <li>Ajouter la librairie npm install supertest 1.0.1: client l&eacute;ger http</li>
-                            <li>R&eacute;cu&ecirc;p&eacute;rer le code
-                                <pre><code>git clone  https://github.com/antechrestos/CodingDojoNodeJs.git -b init_test_rest</code></pre>
-                            </li>
-                        </ul>
-                        <p>Coder les tests sur le GET/POST/PUT/DELETE (penser à lancer mongo)</p>
-                        <p>* Trouver l'erreur dans POST cr&eacute;tion de ressource existante), ainsi que le probl&egrave; de gestion du champs agile dans les formulairesurl encoded *</p>
-                    </section>
-                    <section>
-                        <h3>Perdu?</h3>
-                        <pre><code>git clone  https://github.com/antechrestos/CodingDojoNodeJs.git -b end_test_rest</code></pre>
-                    </section>
-                    <section>
-                        <h3>Pour aller plus loin</h3>
-                        <p>Test avec Mocha et selenium...</p>
-                    </section>
-                </section>
-                <section>
-                    <h2>Merci &agrave; vous</h2>
-                </section>
-			</div>
+				</section>
+				<section>
+					<h3>Code</h3>
+					<label>Récup&eacute;rer le code qui impl&eacute;mente les GET/POST/PUT/DELETE sur les developpers ainsi qu'une page jade</label>
+					<pre><code>git clone  https://github.com/antechrestos/CodingDojoNodeJs.git -b init_test</code></pre>
+					<p>Installer les deux librairies</p>
+					<pre><code>npm install</code></pre>
+				</section>
+				<section>
+					<h3>Lancement des tests</h3>
+					<pre><code>node_modules/mocha/bin/mocha</code></pre>
+				</section>
+				<section>
+					<h3>Test Dao</h3>
+					<p>Pr&eacute;requis</p>
+					<ul>
+						<li>Ajouter la librairie mockery 1.4.0: permet de contr&ocirc;ler les chargements des d&eacute;pendances</li>
+						<li>R&eacute;cu&ecirc;p&eacute;rer le code
+							<pre><code>git clone  https://github.com/antechrestos/CodingDojoNodeJs.git -b init_test_dao</code></pre>
+						</li>
+					</ul>
+					<p>Coder les tests sur le get/create/remove (penser &agrave; lancer mongo)</p>
+					<p>remplacer should.be.true par should.be.true()</p>
+					<p>* Trouver l'erreur dans dao.create* </p>
+				</section>
+				<section>
+					<h3>Test Rest</h3>
+					<p>Pr&eacute;requis</p>
+					<ul>
+						<li>Ajouter la librairie npm install supertest 1.0.1: client l&eacute;ger http</li>
+						<li>R&eacute;cup&eacute;rer le code
+							<pre><code>git clone  https://github.com/antechrestos/CodingDojoNodeJs.git -b init_test_rest</code></pre>
+						</li>
+					</ul>
+					<p>Coder les tests sur le GET/POST/PUT/DELETE (penser à lancer mongo)</p>
+					<p>* Trouver l'erreur dans POST cr&eacute;ation de ressource existante, ainsi que le probl&egrave;me de gestion du champs agile dans les formulaires url encoded *</p>
+				</section>
+				<section>
+					<h3>Perdu?</h3>
+					<pre><code>git clone  https://github.com/antechrestos/CodingDojoNodeJs.git -b end_test_rest</code></pre>
+				</section>
+				<section>
+					<h3>Pour aller plus loin</h3>
+					<p>Test avec Mocha et selenium...</p>
+				</section>
+			</section>
+			<section>
+				<h2>Merci &agrave; vous</h2>
+			</section>
 		</div>
+	</div>
 
-	</body>
+</body>
 
 </html>
