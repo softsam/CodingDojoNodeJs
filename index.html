@@ -109,7 +109,7 @@
 			<section class="home">
 				<h1>Node Js</h1>
 				<h3>Coding Dojo - Node Js</h3>
-				<small>Animé par vous m&ecirc;me</small>
+				<small>Anim&eacute; par vous m&ecirc;me</small>
 			</section>
 
 			<section>
@@ -117,14 +117,14 @@
 					<h2>Node JS</h2>
 					<div>
 						<ul>
-							<li>Nodejs est un serveur d'application qui héberge des applications écrites en javascript. </li>
-							<li>Il s'exécute sur un thread unique et les opération E/S sont non bloquantes</li>
-							<li>Il vient avec npm (gestionnaire de paquets) qui se charge des dépendances</li>
+							<li>Nodejs est un serveur d'application qui h&eacute;berge des applications &eacute;crites en javascript. </li>
+							<li>Il s'ex&eacute;cute sur un thread unique et les op&eacute;ration E/S sont non bloquantes</li>
+							<li>Il vient avec npm (gestionnaire de paquets) qui se charge des d&eacute;pendances</li>
 						</ul>
 					</div>
 				</section>
 				<section>
-					<h2>exemple d'une opération d'IO non bloquante</h2>
+					<h2>exemple d'une op&eacute;ration d'IO non bloquante</h2>
 					<div>
 						<pre>
                                 <code>
@@ -148,7 +148,7 @@ someIoOperation(param1,param2, param3,
 			<section>
 				<section>
 					<h2>
-							Prérequis
+							Pr&eacute;requis
 						</h2>
 				</section>
 				<section>
@@ -157,7 +157,7 @@ someIoOperation(param1,param2, param3,
 						</li>
 						<li>Pour eburo: Installer le <a href="http://recommendations.si.fr.intraorange/environnement-de-d-veloppement-web/#cntlm">proxy cntlm</a>
 						</li>
-						<li>Un éditeur javascript(Bracket avec extension extension beautify, IntelliJ Ultimate, Nodeeclipse...)</li>
+						<li>Un &eacute;diteur javascript(Bracket avec extension extension beautify, IntelliJ Ultimate, Nodeeclipse...)</li>
 						<li><a href="http://www.mongodb.org/downloads#previous">MongoDb 2.4</a>
 						</li>
 					</ul>
@@ -172,14 +172,14 @@ someIoOperation(param1,param2, param3,
 						</h2>
 				</section>
 				<section>
-					<h2>Récupération du code (tag init)</h2>
+					<h2>R&eacute;cup&eacute;ration du code (tag init)</h2>
 					<pre><code>git clone  https://github.com/antechrestos/CodingDojoNodeJs.git -b init</code></pre>
 				</section>
 				<section>
 					<h2>Arborescence</h2>
 					<ul>
 						<li>package.json : descriptif de l'application</li>
-						<li>node_modules: là où seront installées les librairies requises. Taper npm install à la racine du projet.</li>
+						<li>node_modules: l&agrave; o&ugrave; seront install&eacute;es les librairies requises. Taper npm install &agrave; la racine du projet.</li>
 					</ul>
 				</section>
 				<section>
@@ -288,9 +288,9 @@ server.listen(port, host, function () {
                         </pre>
 				</section>
 				<section>
-					<h2>Exécution</h2>
+					<h2>Ex&eacute;cution</h2>
 					<ul>
-						<li>Démarrage <pre><code>node server.js</code></pre>
+						<li>D&eacute;marrage <pre><code>node server.js</code></pre>
 						</li>
 						<li>Aller sur: http://localhost:8080</li>
 					</ul>
@@ -305,14 +305,14 @@ server.listen(port, host, function () {
 					<h2>Jade</h2>
 				</section>
 				<section>
-					<h3>Ajout dépendance 1.9.2</h3>
+					<h3>Ajout d&eacute;pendance 1.9.2</h3>
 					<ul>
-						<li>Déclaration</li>
+						<li>D&eacute;claration</li>
 						<li>Installation</li>
 					</ul>
 				</section>
 				<section>
-					<h3>Déclaration Jade dans application</h3>
+					<h3>D&eacute;claration Jade dans application</h3>
 					<pre>
                             <code>
 app.set('views', path.join(__dirname, 'views'));
@@ -321,7 +321,7 @@ app.set('view engine', 'jade');
                         </pre>
 				</section>
 				<section>
-					<h3>Déclaration de la vue</h3>
+					<h3>D&eacute;claration de la vue</h3>
 					<pre>
                             <code>
 doctype html
@@ -367,12 +367,12 @@ doctype html
 				</section>
 				<section>
 					<h3>Exercice</h3>
-					<p>Réécrire <i>hello.html</i> avec jade</p>
+					<p>R&eacute;&eacute;crire <i>hello.html</i> avec jade</p>
 					<ul>
-						<li>banners.jade: contient les banner warning et error et le javascript associé</li>
-						<li>header.jade: contient les banner warning et error et le javascript associé</li>
+						<li>banners.jade: contient les banner warning et error et le javascript associ&eacute;</li>
+						<li>header.jade: contient les banner warning et error et le javascript associ&eacute;</li>
 						<li>layout.jade: contient le squelette de la page (utiliser blocks pour la notion de template)</li>
-						<li>hello.jade: étend layout.jade et définit le block content défini dans layout.jade</li>
+						<li>hello.jade: &eacute;tend layout.jade et d&eacute;finit le block content d&eacute;fini dans layout.jade</li>
 					</ul>
 				</section>
 				<section>
@@ -385,16 +385,16 @@ doctype html
 					<h2>MongoDb</h2>
 				</section>
 				<section>
-					<h3>Ajout dépendance 0.18.0</h3>
+					<h3>Ajout d&eacute;pendance 0.18.0</h3>
 					<ul>
-						<li>Déclaration</li>
-						<li>Installation (soit par npm install, soit décompression de mongojs.zip dans node_modules</li>
-						<li>Démarrage mongo sur port 27017 (défaut)<pre><code>mongod --dbpath db.data/ --port 27017</code></pre>
+						<li>D&eacute;claration</li>
+						<li>Installation (soit par npm install, soit d&eacute;compression de mongojs.zip dans node_modules</li>
+						<li>D&eacute;marrage mongo sur port 27017 (d&eacute;faut)<pre><code>mongod --dbpath db.data/ --port 27017</code></pre>
 						</li>
 					</ul>
 				</section>
 				<section>
-					Ouverture de l'objet base de donnée mongo
+					Ouverture de l'objet base de donn&eacute;e mongo
 					<h3>Dans un fichier dao/db.js</h3>
 					<pre>
                             <code>
@@ -620,7 +620,7 @@ app.use('/services/developers/', developer(daos.developers));
 				</section>
 				<section>
 					<h3>Code</h3>
-					<label>Récup&eacute;rer le code qui impl&eacute;mente les GET/POST/PUT/DELETE sur les developpers ainsi qu'une page jade</label>
+					<label>R&eacute;cup&eacute;rer le code qui impl&eacute;mente les GET/POST/PUT/DELETE sur les developpers ainsi qu'une page jade</label>
 					<pre><code>git clone  https://github.com/antechrestos/CodingDojoNodeJs.git -b init_test</code></pre>
 					<p>Installer les deux librairies</p>
 					<pre><code>npm install</code></pre>
@@ -651,7 +651,7 @@ app.use('/services/developers/', developer(daos.developers));
 							<pre><code>git clone  https://github.com/antechrestos/CodingDojoNodeJs.git -b init_test_rest</code></pre>
 						</li>
 					</ul>
-					<p>Coder les tests sur le GET/POST/PUT/DELETE (penser à lancer mongo)</p>
+					<p>Coder les tests sur le GET/POST/PUT/DELETE (penser &agrave; lancer mongo)</p>
 					<p>* Trouver l'erreur dans POST cr&eacute;ation de ressource existante, ainsi que le probl&egrave;me de gestion du champs agile dans les formulaires url encoded *</p>
 				</section>
 				<section>
